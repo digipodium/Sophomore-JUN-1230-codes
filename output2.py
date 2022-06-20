@@ -1,0 +1,6 @@
+print("Hello", end=" ")
+print("Fellow")
+print("Are", end="-")
+print("you")
+print("happy")
+print("today")
