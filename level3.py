@@ -12,23 +12,27 @@ tiles = [
     "road_b_l",
     "road_t_r",
     "road_t_l",
+    "road_sqr",
+    'road_t_b_l',
+    'road_t_b_r',
 ]
 
 level = [
     [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0],
-    [2, 2, 2, 5, 1, 0, 0, 0, 0, 0, 0, 6, 2, 2, 2],
-    [0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 3, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 3, 1, 1, 0, 0, 1, 0, 0, 1, 1, 0, 0],
-    [0, 0, 0, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [2, 2, 2, 5, 1, 0, 0, 0, 4, 2, 2, 8, 2, 2, 2],
+    [0, 0, 0, 3, 0, 0, 0, 0, 3, 0, 0, 3, 1, 1, 1],
+    [2, 2, 2, 9, 0, 1, 0, 4, 7, 0, 0, 3, 1, 1, 1],
+    [0, 0, 0, 3, 1, 1, 0, 3, 1, 0, 0, 3, 1, 1, 1],
+    [0, 4, 2, 8, 2, 2, 2, 8, 2, 2, 2, 8, 2, 2, 8],
+    [0, 3, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0],
+    [0, 3, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0],
+    [0, 3, 0, 10, 2, 2, 2, 8, 2, 2, 2, 9, 0, 0, 0],
+    [0, 3, 0, 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0],
 ]
 
 p = Actor('player',topleft = (3*TS, 1*TS))
 g = Actor("goal", topleft = (14*TS, 5*TS))
+e1 = Actor('enemy',topleft=(8*TS, 5*TS))
 
 def draw():
     screen.clear()
@@ -41,6 +45,14 @@ def draw():
 
     p.draw()
     g.draw()
+    e1.draw()
+
+# add more enemy on the roads and then write logic for collision
+
+def update():
+    if e1.colliderect(p):
+        p.image = 'alien_hurt'
+
 
 def on_key_down(key):
     row = int(p.y / TS)
@@ -60,7 +72,9 @@ def on_key_down(key):
             y = row * TS
             animate(p, duration=0.3, topleft=(x, y))
         else:
-            sounds.eep.play()
             print('cannot go into the woods')
     except:
         print('out of bounds')
+
+
+

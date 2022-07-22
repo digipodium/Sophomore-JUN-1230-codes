@@ -8,6 +8,7 @@ def draw():
     screen.fill("black")
     alien.draw()
     bat.draw()
+    print(dir(bat))
 
 def update():
     if keyboard.left:
